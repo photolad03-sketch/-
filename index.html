@@ -65,7 +65,7 @@
         <div class="page" id="page2">
             <h2>Zobaer & Tashrifa</h2>
             <img class="img-box" src="https://i.postimg.cc/ZnLYf9pT/ZOBAER-TASHRIFA-20260623-034748-0000.gif">
-            <p id="guest-name" style="padding: 0 15px; font-size: 1.1em;">প্রিয় অতিথি, আমাদের বিয়েতে আপনাকে স্বাগতম।</p>
+            <p id="guest-name" style="padding: 0 15px; font-size: 1.1em;">শ্রদ্ধেয় অতিথি, আমাদের বৈবাহিক জীবনের বিশেষ এই দিনে আপনার মূল্যবান উপস্থিতি আমাদের ধন্য করবে।</p>
             
             <div id="admin-section" style="display: none;">
                 <input type="text" id="nameInput" placeholder="অতিথির নাম লিখুন">
@@ -101,7 +101,7 @@
 
         // যদি লিংকে নাম না থাকে, তবেই ইনপুট বক্স দেখাবে
         if(name) {
-            document.getElementById('guest-name').textContent = "প্রিয় " + decodeURIComponent(name) + ", আমাদের বিয়েতে আপনাকে স্বাগতম।";
+            document.getElementById('guest-name').textContent = "শ্রদ্ধেয় " + decodeURIComponent(name) + ", আমাদের বিয়েতে আপনাকে স্বাগতম।";
         } else {
             document.getElementById('admin-section').style.display = 'block';
         }
