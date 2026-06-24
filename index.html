@@ -37,15 +37,15 @@
         background: #ffd700; color: #3a0000; border: none;
         padding: 10px 20px; border-radius: 25px; cursor: pointer;
         font-weight: bold; margin-top: 15px; transition: 0.3s;
+        text-decoration: none; display: inline-block;
     }
     .btn:hover { transform: scale(1.05); background: #fff; }
     .img-box { width: 100%; max-height: 200px; object-fit: contain; margin-bottom: 10px; }
     .audio-box { margin-top: 15px; background: rgba(255,215,0,0.1); padding: 5px; border-radius: 30px; }
     
     /* ইনপুট স্টাইল */
-    #admin-section { margin-top: 20px; border-top: 1px solid #ffd700; padding-top: 10px; width: 100%; }
-    input { padding: 8px; border-radius: 15px; border: none; width: 80%; margin-bottom: 10px; text-align: center; }
-    #generatedLink { font-size: 0.8em; word-break: break-all; color: #ffd700; }
+    input { padding: 8px; border-radius: 15px; border: none; width: 80%; margin-top: 10px; text-align: center; }
+    #generatedLink { margin-top: 10px; font-size: 0.8em; word-break: break-all; color: #ffd700; }
     
     #page2, #page3 { transform: translateX(100%); opacity: 0; }
     </style>
@@ -65,16 +65,13 @@
         <div class="page" id="page2">
             <h2>Zobaer & Tashrifa</h2>
             <img class="img-box" src="https://i.postimg.cc/ZnLYf9pT/ZOBAER-TASHRIFA-20260623-034748-0000.gif">
-            <p id="guest-name" style="padding: 0 15px; font-size: 1.1em;">শ্রদ্ধেয় অতিথি, আমাদের বৈবাহিক জীবনের বিশেষ এই দিনে আপনার মূল্যবান উপস্থিতি আমাদের ধন্য করবে।</p>
+            <p id="guest-name" style="padding: 0 15px; font-size: 1.1em;">প্রিয় অতিথি, আমাদের বিয়েতে আপনাকে স্বাগতম।</p>
             
-            <div id="admin-section" style="display: none;">
-                <input type="text" id="nameInput" placeholder="অতিথির নাম লিখুন">
-                <br>
-                <button class="btn" onclick="generateLink()">লিংক তৈরি করুন</button>
-                <p id="generatedLink"></p>
-            </div>
+            <input type="text" id="nameInput" placeholder="অতিথির নাম লিখুন">
+            <button class="btn" onclick="generateLink()">লিংক তৈরি করুন</button>
+            <p id="generatedLink"></p>
             
-            <button class="btn" style="margin-top: 20px;" onclick="nextPage(3)">বিস্তারিত দেখুন 📍</button>
+            <button class="btn" onclick="nextPage(3)">বিস্তারিত দেখুন 📍</button>
         </div>
 
         <div class="page" id="page3">
@@ -83,7 +80,7 @@
             <div class="audio-box">
                 <audio id="bg-music" src="https://archive.org/download/sue-lius-wedding-nasheed-muhammad-al-muqit-m-4-a-128-k/SueLius%20-%20Wedding%20Nasheed%20_%20Muhammad%20Al%20Muqit%28M4A_128K%29.m4a" controls></audio>
             </div>
-            <button class="btn" onclick="share()">শেয়ার করুন 📲</button>
+            <a href="http://maps.google.com/" target="_blank" class="btn">লোকেশন দেখুন 🗺️</a>
         </div>
     </div>
 
@@ -96,28 +93,17 @@
             if(n > 1) document.getElementById('bg-music').play();
         }
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const name = urlParams.get('name');
+        // নাম পাওয়ার ফাংশন
+        const name = new URLSearchParams(window.location.search).get('name');
+        if(name) document.getElementById('guest-name').textContent = "প্রিয় " + decodeURIComponent(name) + ", আমাদের বিয়েতে আপনাকে স্বাগতম।";
 
-        // যদি লিংকে নাম না থাকে, তবেই ইনপুট বক্স দেখাবে
-        if(name) {
-            document.getElementById('guest-name').textContent = "শ্রদ্ধেয় " + decodeURIComponent(name) + ", আমাদের বিয়েতে আপনাকে স্বাগতম।";
-        } else {
-            document.getElementById('admin-section').style.display = 'block';
-        }
-
+        // লিংক জেনারেট করার ফাংশন
         function generateLink() {
-            const inputName = document.getElementById('nameInput').value;
-            if(!inputName) { alert("দয়া করে নাম লিখুন!"); return; }
+            const name = document.getElementById('nameInput').value;
+            if(!name) { alert("দয়া করে নাম লিখুন!"); return; }
             const baseUrl = window.location.origin + window.location.pathname;
-            const newLink = `${baseUrl}?name=${encodeURIComponent(inputName)}`;
-            document.getElementById('generatedLink').innerHTML = `লিংক তৈরি হয়েছে: <br><a href="${newLink}" style="color:white;">এখানে ক্লিক করে দেখুন</a>`;
-        }
-
-        function share() {
-            const text = "Zobaer & Tashrifa-এর বিয়ের আমন্ত্রণে আপনাকে স্বাগতম!";
-            if (navigator.share) { navigator.share({title: 'Wedding Invitation', text: text, url: window.location.href}); }
-            else { alert("লিংক কপি হয়েছে!"); }
+            const newLink = `${baseUrl}?name=${encodeURIComponent(name)}`;
+            document.getElementById('generatedLink').innerHTML = `লিংক: <a href="${newLink}" style="color:white;">এখানে ক্লিক করুন</a>`;
         }
     </script>
 </body>
