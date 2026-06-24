@@ -58,25 +58,27 @@
                 <img src="https://i.ibb.co/Q7SXqWSb/converted.png">
             </div>
             <h1>শুভ বিবাহ</h1>
-            <p>আমাদের জীবনের বিশেষ দিনে আপনাকে আমন্ত্রণ।</p>
+            <p>আমাদের জীবনের এ বিশেষ দিনে আপনাকে আমন্ত্রণ।</p>
             <button class="btn" onclick="nextPage(2)">ইনভিটেশন খুলুন ✉️</button>
         </div>
 
         <div class="page" id="page2">
             <h2>Zobaer & Tashrifa</h2>
             <img class="img-box" src="https://i.postimg.cc/ZnLYf9pT/ZOBAER-TASHRIFA-20260623-034748-0000.gif">
-            <p id="guest-name" style="padding: 0 15px; font-size: 1.1em;">প্রিয় অতিথি, আমাদের বিয়েতে আপনাকে স্বাগতম।</p>
+            <p id="guest-name" style="padding: 0 15px; font-size: 1.1em;">শ্রদ্ধেয় অতিথি, আমাদের বিয়েতে আপনাকে স্বাগতম।</p>
             
-            <input type="text" id="nameInput" placeholder="অতিথির নাম লিখুন">
-            <button class="btn" onclick="generateLink()">লিংক তৈরি করুন</button>
-            <p id="generatedLink"></p>
+            <div id="admin-section">
+                <input type="text" id="nameInput" placeholder="অতিথির নাম লিখুন">
+                <button class="btn" onclick="generateLink()">লিংক তৈরি করুন</button>
+                <p id="generatedLink"></p>
+            </div>
             
-            <button class="btn" onclick="nextPage(3)">বিস্তারিত দেখুন 📍</button>
+            <button class="btn" style="margin-top:20px;" onclick="nextPage(3)">বিস্তারিত দেখুন 📍</button>
         </div>
 
         <div class="page" id="page3">
             <h2>অনুষ্ঠানস্থল</h2>
-            <p><strong>স্থান:</strong> নরেন্দ্রপুর মোল্লাবাড়ি<br><strong>তারিখ:</strong> ২৭ জুন, ২০২৬</p>
+            <p><strong>স্থান:</strong> বরুড়া নরেন্দ্রপুর মোল্লাবাড়ি<br><strong>তারিখ:</strong> ২৭ জুন, ২০২৬</p>
             <div class="audio-box">
                 <audio id="bg-music" src="https://archive.org/download/sue-lius-wedding-nasheed-muhammad-al-muqit-m-4-a-128-k/SueLius%20-%20Wedding%20Nasheed%20_%20Muhammad%20Al%20Muqit%28M4A_128K%29.m4a" controls></audio>
             </div>
@@ -93,17 +95,21 @@
             if(n > 1) document.getElementById('bg-music').play();
         }
 
-        // নাম পাওয়ার ফাংশন
-        const name = new URLSearchParams(window.location.search).get('name');
-        if(name) document.getElementById('guest-name').textContent = "প্রিয় " + decodeURIComponent(name) + ", আমাদের বিয়েতে আপনাকে স্বাগতম।";
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name');
+        
+        // যদি লিংকে নাম থাকে, তবে অ্যাডমিন অংশটি লুকিয়ে নাম দেখাবে
+        if(name) {
+            document.getElementById('guest-name').textContent = "প্রিয় " + decodeURIComponent(name) + ", আমাদের বিয়েতে আপনাকে স্বাগতম।";
+            document.getElementById('admin-section').style.display = 'none';
+        }
 
-        // লিংক জেনারেট করার ফাংশন
         function generateLink() {
             const name = document.getElementById('nameInput').value;
             if(!name) { alert("দয়া করে নাম লিখুন!"); return; }
             const baseUrl = window.location.origin + window.location.pathname;
             const newLink = `${baseUrl}?name=${encodeURIComponent(name)}`;
-            document.getElementById('generatedLink').innerHTML = `লিংক: <a href="${newLink}" style="color:white;">এখানে ক্লিক করুন</a>`;
+            document.getElementById('generatedLink').innerHTML = `লিংক: <br><a href="${newLink}" style="color:white; word-break:break-all;">${newLink}</a>`;
         }
     </script>
 </body>
