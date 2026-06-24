@@ -111,7 +111,7 @@
         
         // যদি লিংকে নাম থাকে, তবে অ্যাডমিন অংশটি লুকিয়ে নাম দেখাবে
         if(name) {
-            document.getElementById('guest-name').textContent = "প্রিয় " + decodeURIComponent(name) + ", আমাদের বিয়েতে আপনাকে স্বাগতম।";
+            document.getElementById('guest-name').textContent = "" + decodeURIComponent(name) + ", আমাদের জীবনের নতুন যাত্রার শুরুতে আপনার উপস্থিতি আমাদের আনন্দিত করবে।";
             document.getElementById('admin-section').style.display = 'none';
         }
 
@@ -123,5 +123,16 @@
             document.getElementById('generatedLink').innerHTML = `লিংক: <br><a href="${newLink}" style="color:white; word-break:break-all;">${newLink}</a>`;
         }
     </script>
+    <style>
+.location-container {
+  background-color: rgba(212, 175, 55, 0.2); 
+  border: 1px solid #d4af37; 
+  border-radius: 8px; 
+  padding: 10px 20px;
+  display: inline-block;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+    </style>
+    
 </body>
 </html>
